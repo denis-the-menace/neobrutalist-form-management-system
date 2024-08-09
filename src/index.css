@@ -1,0 +1,225 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  .light {
+    --color-light-peach: #ffedd5;
+    --color-pale-yellow: #fee3ae;
+    --color-bright-orange: #ffa500;
+    --color-primary-dark: #000000;
+    --color-primary-light: #ffffff;
+    --color-secondary: #4a4a4a;
+    --color-light-pink: #ffcccc;
+    --color-dark-pink: #ff99aa;
+    --color-light-blue: #b2ebf2;
+    --color-dark-blue: #0a74da;
+    --color-light-red: #e57373;
+    --color-dark-red: #cc0000;
+    --color-light-green: #d0f0c0;
+    --color-dark-green: #004d00;
+  }
+
+  .dark {
+    --color-light-peach: #4b2e2e;
+    --color-pale-yellow: #4b4b29;
+    --color-bright-orange: #ff8c00;
+    --color-primary-dark: #ffffff;
+    --color-primary-light: #000000;
+    --color-secondary: #b3b3b3;
+    --color-light-pink: #cc9999;
+    --color-dark-pink: #996666;
+    --color-light-blue: #074e63;
+    --color-dark-blue: #005bb5;
+    --color-light-red: #e57373;
+    --color-dark-red: #660000;
+    --color-light-green: #a3c2a0;
+    --color-dark-green: #003300;
+  }
+}
+
+html,
+body,
+#root {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  overflow: hidden;
+}
+
+section {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+section .wave {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 150px;
+  background: url("../public/wave.png");
+  background-size: 1000px 150px;
+}
+
+section .wave.wave1 {
+  animation: wave 30s linear infinite;
+  z-index: 49;
+  opacity: 1;
+  animation-delay: 0s;
+}
+
+section .wave.wave2 {
+  animation: wave2 15s linear infinite;
+  z-index: 48;
+  opacity: 0.5;
+  animation-delay: -5s;
+  bottom: 10px;
+}
+
+section .wave.wave3 {
+  animation: wave 30s linear infinite;
+  z-index: 47;
+  opacity: 0.2;
+  animation-delay: -2s;
+  bottom: 15px;
+}
+
+section .wave.wave4 {
+  animation: wave 15s linear infinite;
+  z-index: 46;
+  opacity: 0.7;
+  animation-delay: -2s;
+  bottom: 20px;
+}
+
+@keyframes wave {
+  0% {
+    background-position-x: 0;
+  }
+
+  100% {
+    background-position-x: 1000px;
+  }
+}
+
+@keyframes wave2 {
+  0% {
+    background-position-x: 0;
+  }
+
+  100% {
+    background-position-x: -1000px;
+  }
+}
+
+.solid-shadow {
+  position: relative;
+}
+
+.solid-shadow::after {
+  content: "";
+  position: absolute;
+  top: 0.75rem;
+  left: 0.75rem;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-primary-dark);
+  z-index: -1;
+  border-radius: 2rem;
+}
+
+.input-solid-shadow {
+  position: relative;
+  border-radius: 0.5rem;
+  /* Adjust based on your design */
+  background-color: var(--color-input-bg);
+  /* Customize input background color */
+}
+
+.input-solid-shadow::after {
+  content: "";
+  position: absolute;
+  top: 0.5rem;
+  left: 0.5rem;
+  width: 100%;
+  height: 100%;
+  background-color: var(--color-primary-dark);
+  /* Shadow color */
+  z-index: -1;
+  border-radius: inherit;
+}
+
+.radio-button-group {
+  --font-color-dark: #323232;
+  --font-color-light: #fff;
+  --bg-color: #fff;
+  --main-color: #323232;
+  --secondary-color: #505050;
+  position: relative;
+  height: 2.25rem;
+  background-color: var(--color-primary-light);
+  border: 2px solid var(--color-primary-dark);
+  border-radius: 34px;
+  display: flex;
+  flex-direction: row;
+  box-shadow: 4px 4px var(--color-primary-dark);
+}
+
+.radio-button {
+  margin-right: 5px;
+  width: 80.5px;
+  height: 28px;
+  position: relative;
+  top: 2px;
+  left: 2px;
+  border-radius: 34px;
+  transition: 0.25s cubic-bezier(0, 0, 0, 1);
+}
+
+.radio-button:last-child {
+  margin-right: 4px;
+}
+
+.radio-button:hover {
+  background-color: var(--color-secondary);
+}
+
+.radio-button:hover .radio-button__label {
+  color: var(--color-primary-light);
+}
+
+.radio-button__input {
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  appearance: none;
+  cursor: pointer;
+}
+
+.radio-button__button {
+  width: 100%;
+  height: 100%;
+  border-radius: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.radio-button__label {
+  color: var(--color-primary-dark);
+}
+
+.radio-button__input:checked+.radio-button__button {
+  background-color: var(--color-dark-blue);
+  transition: 0.2s cubic-bezier(0, 0, 0, 1);
+}
+
+.radio-button__input:checked+.radio-button__button .radio-button__label {
+  color: var(--color-primary-light);
+  transition: 0.25s cubic-bezier(0, 0, 0, 1);
+}

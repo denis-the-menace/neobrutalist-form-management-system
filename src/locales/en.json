@@ -1,0 +1,18 @@
+{
+  "navbar": {
+    "home": "HOME",
+    "login": "LOGIN",
+    "messages": "MESSAGES",
+    "users": "USERS",
+    "reports": "REPORTS"
+  },
+  "contact-form-page": {
+    "title": "CONTACT US",
+    "name": "Name",
+    "email": "Email",
+    "message": "Message",
+    "send": "Send",
+    "success": "Your message has been sent successfully.",
+    "error": "An error occurred while sending your message."
+  }
+}

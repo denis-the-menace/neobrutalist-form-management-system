@@ -1,0 +1,18 @@
+{
+  "navbar": {
+    "home": "ANA SAYFA",
+    "login": "GİRİŞ",
+    "messages": "MESAJLAR",
+    "users": "KULLANICILAR",
+    "reports": "RAPORLAR"
+  },
+  "contact-form-page": {
+    "title": "Bize Ulaşın",
+    "name": "İsim",
+    "email": "Eposta",
+    "message": "Mesaj",
+    "send": "Gönder",
+    "success": "Mesajınız başarıyla gönderildi.",
+    "error": "Mesajınız gönderilirken bir hata oluştu."
+  }
+}
