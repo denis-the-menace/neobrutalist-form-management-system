@@ -6,7 +6,7 @@ import { Outlet } from "react-router-dom";
 import { HelmetProvider, Helmet } from "react-helmet-async";
 import Footer from "./components/Footer";
 import LoadingMessage from "./components/util/LoadingMessage";
-import PageWrapper from "./components/PageWrapper";
+import { ToastContainer } from "react-toastify";
 
 function App() {
   const dispatch = useDispatch();
@@ -33,6 +33,7 @@ function App() {
         {loading ? <LoadingMessage /> : <Outlet />}
       </main>
       <Footer />
+      <ToastContainer />
     </HelmetProvider>
   );
 }

@@ -12,6 +12,7 @@ import "./index.css";
 import store from "./store";
 import { Provider } from "react-redux";
 import ProtectedRoute from "./components/util/ProtectedRoute";
+import ErrorBoundary from "./pages/ErrorBoundary";
 import NotFoundPage from "./pages/NotFoundPage";
 import NotAuthorizedPage from "./pages/NotAuthorizedPage";
 import ContactFormPage from "./pages/ContactFormPage";
@@ -25,7 +26,7 @@ import ReportsPage from "./pages/ReportsPage";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
-    <Route path="/" element={<App />}>
+    <Route path="/" element={<App />} errorElement={<ErrorBoundary />}>
       <Route index={true} path="/" element={<ContactFormPage />} />
       <Route path="/login" element={<LogInPage />} />
 

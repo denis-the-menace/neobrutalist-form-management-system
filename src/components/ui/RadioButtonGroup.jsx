@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 export default function RadioButtonGroup({ buttons, onChange }) {
-  const [selected, setSelected] = useState(buttons[0]?.value || "");
+  const [selected, setSelected] = useState("");
 
   const handleChange = (value) => {
     setSelected(value);

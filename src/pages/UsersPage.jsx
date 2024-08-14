@@ -1,15 +1,25 @@
+import { useEffect } from "react";
 import { useSelector } from "react-redux";
-import { Link, Navigate } from "react-router-dom";
+import { Link, Navigate, useLocation } from "react-router-dom";
 import { useGetUsersQuery } from "../slices/userApiSlice";
 import Button from "../components/ui/Button";
 import PageWrapper from "../components/PageWrapper";
+import notify from "../utils/notify";
 
 export default function UsersPage() {
   const { userInfo } = useSelector((state) => state.auth);
+  const location = useLocation();
 
   if (userInfo.role !== "admin") {
     return <Navigate to="/" />;
   }
+
+  useEffect(() => {
+    if (location.state?.toastMessage) {
+      notify(location.state.toastMessage);
+      location.state = {};
+    }
+  }, [location.state]);
 
   const {
     data: { data: { users = [] } = {} } = {},
@@ -67,19 +77,19 @@ export default function UsersPage() {
           </tbody>
         </table>
       </div>
-        <div className="flex justify-center lg:justify-end mr-2">
-          <Link to="/users/add" className="mb-4 inline-block">
-            <Button
-              type="submit"
-              className="mt-4 py-2 px-8 text-lg disabled:opacity-50"
-              bgColor="bg-light-pink"
-              hoverColor="bg-dark-pink"
-              activeColor="bg-primary-dark"
-            >
-              Add New User
-            </Button>
-          </Link>
-        </div>
+      <div className="flex justify-center lg:justify-end mr-2">
+        <Link to="/users/add" className="mb-4 inline-block">
+          <Button
+            type="submit"
+            className="mt-4 py-2 px-8 text-lg disabled:opacity-50"
+            bgColor="bg-light-pink"
+            hoverColor="bg-dark-pink"
+            activeColor="bg-primary-dark"
+          >
+            Add New User
+          </Button>
+        </Link>
+      </div>
     </PageWrapper>
   );
 }

@@ -8,6 +8,7 @@ import LoadingMessage from "../components/util/LoadingMessage";
 import ErrorMessage from "../components/util/ErrorMessage";
 import Button from "../components/ui/Button";
 import PageWrapper from "../components/PageWrapper";
+import notify from "../utils/notify";
 
 export default function MessagesPage() {
   const { userInfo } = useSelector((state) => state.auth);
@@ -29,9 +30,11 @@ export default function MessagesPage() {
     if (window.confirm("Are you sure you want to delete this message?")) {
       try {
         await deleteMessage(id).unwrap();
+        notify("Message deleted successfully.");
         refetch();
       } catch (err) {
         console.error("Failed to delete the message:", err);
+        notify("Failed to delete the message: ", err);
       }
     }
   };
@@ -63,6 +66,7 @@ export default function MessagesPage() {
                   {new Date(message.creationDate).toLocaleDateString()}
                 </td>
                 <td className="py-2 px-4 text-center">
+                  {console.log(message.read)}
                   {message.read ? "Read" : "Unread"}
                 </td>
                 <td className="py-2 text-center">

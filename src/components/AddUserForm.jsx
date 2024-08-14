@@ -1,9 +1,8 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import { useAddReaderMutation } from "../slices/userApiSlice";
 import LoadingMessage from "../components/util/LoadingMessage";
 import ErrorMessage from "../components/util/ErrorMessage";
-import PageWrapper from "../components/PageWrapper";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
 
@@ -37,6 +36,11 @@ export default function AddUserForm() {
       return;
     }
 
+    if (!photo) {
+      setError("Photo is required");
+      return;
+    }
+
     const userData = {
       username: username,
       password: password,
@@ -45,7 +49,9 @@ export default function AddUserForm() {
 
     try {
       await addUser(userData).unwrap();
-      navigate("/users");
+      navigate("/users", {
+        state: { toastMessage: "User added successfully." },
+      });
     } catch (err) {
       console.error("Failed to add the user:", err);
       // TODO handle error

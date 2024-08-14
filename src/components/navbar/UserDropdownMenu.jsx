@@ -28,7 +28,6 @@ export default function UserDropdownMenu() {
 
   const handleLogout = async () => {
     try {
-      console.log(userInfo);
       await logout(token).unwrap();
       dispatch(deleteCredentials());
       setIsDropdownOpen(false);

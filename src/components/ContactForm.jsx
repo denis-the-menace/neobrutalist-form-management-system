@@ -7,6 +7,7 @@ import Input from "../components/ui/Input";
 import RadioButtonGroup from "./ui/RadioButtonGroup";
 import TextArea from "./ui/TextArea";
 import Selector from "./ui/Selector";
+import notify from "../utils/notify";
 
 export default function ContactForm() {
   const { t } = useTranslation();
@@ -55,12 +56,13 @@ export default function ContactForm() {
 
     try {
       await addMessage({ name, gender, country, message }).unwrap();
-      setSuccess("Message sent successfully");
+      // setSuccess("Message sent successfully");
       setError("");
       setName("");
       setGender("");
       setCountry("");
       setMessage("");
+      notify("Message sent successfully");
     } catch (err) {
       setError(`Failed to send message: ${err.error}`);
     }

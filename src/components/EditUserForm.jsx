@@ -19,17 +19,6 @@ export default function EditUserForm() {
   const [updateUser, { isLoading: isEditing, isError }] =
     useUpdateUserMutation();
 
-  const notify = (message) =>
-    toast(message, {
-      position: "top-right",
-      autoClose: 5000,
-      hideProgressBar: false,
-      closeOnClick: true,
-      pauseOnHover: true,
-      draggable: true,
-      zIndex: 999,
-    });
-
   useEffect(() => {
     if (user) {
       setPhoto(user.photo);
@@ -70,9 +59,11 @@ export default function EditUserForm() {
 
     try {
       await updateUser({ id, data: userData }).unwrap();
-      notify("User updated successfully!");
-      console.log("User updated successfully!");
-      navigate("/users");
+      console.log("User updated successfully.");
+      // navigate("/users");
+      navigate("/users", {
+        state: { toastMessage: "User updated successfully." },
+      });
     } catch (err) {
       console.error("Failed to update the user:", err);
       if (isError) {
@@ -152,7 +143,6 @@ export default function EditUserForm() {
           Update User
         </Button>
       </div>
-      <ToastContainer zIndex={999} />
     </form>
   );
 }
