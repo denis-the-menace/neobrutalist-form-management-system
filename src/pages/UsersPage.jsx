@@ -5,8 +5,10 @@ import { useGetUsersQuery } from "../slices/userApiSlice";
 import Button from "../components/ui/Button";
 import PageWrapper from "../components/PageWrapper";
 import notify from "../utils/notify";
+import { useTranslation } from "react-i18next";
 
 export default function UsersPage() {
+  const {t} = useTranslation();
   const { userInfo } = useSelector((state) => state.auth);
   const location = useLocation();
 
@@ -41,15 +43,15 @@ export default function UsersPage() {
   return (
     <PageWrapper>
       <h2 className="text-3xl font-bold text-primary-dark text-center tracking-tighter mb-4">
-        USERS
+        {t("users.title")}
       </h2>
       <div className="overflow-x-auto">
         <table className="transition duration-300 ease lg:min-w-full min-w-[1000px] bg-primary-light text-primary-dark">
           <thead>
             <tr className="border-b-2 border-primary-dark">
-              <th className="py-2 px-4 text-center w-1/3">Username</th>
-              <th className="py-2 px-4 text-center w-1/3">Role</th>
-              <th className="py-2 px-4 text-center w-1/3">Actions</th>
+              <th className="py-2 px-4 text-center w-1/3">{t("users.username")}</th>
+              <th className="py-2 px-4 text-center w-1/3">{t("users.role")}</th>
+              <th className="py-2 px-4 text-center w-1/3">{t("users.actions")}</th>
             </tr>
           </thead>
           <tbody>
@@ -68,7 +70,7 @@ export default function UsersPage() {
                       activeColor="bg-primary-dark"
                       hasShadow={false}
                     >
-                      Edit
+                      {t("users.edit")}
                     </Button>
                   </Link>
                 </td>
@@ -86,7 +88,7 @@ export default function UsersPage() {
             hoverColor="bg-dark-pink"
             activeColor="bg-primary-dark"
           >
-            Add New User
+            {t("users.add")}
           </Button>
         </Link>
       </div>

@@ -1,18 +1,100 @@
 {
   "navbar": {
-    "home": "ANA SAYFA",
+    "home": "ANASAYFA",
     "login": "GİRİŞ",
     "messages": "MESAJLAR",
     "users": "KULLANICILAR",
-    "reports": "RAPORLAR"
+    "reports": "RAPORLAR",
+    "logout": "Çıkış"
   },
-  "contact-form-page": {
-    "title": "Bize Ulaşın",
-    "name": "İsim",
-    "email": "Eposta",
+  "footer": {
+    "rights": " OBSS. Tüm Hakları Saklıdır",
+    "privacy": "Gizlilik Politikası",
+    "terms": "Kullanım Şartları",
+    "contact": "Bize Ulaşın"
+  },
+  "contact-form": {
+    "title": "BİZE ULAŞIN",
+    "fail-countries": "Ülkeler yüklenemedi",
+    "loading-countries": "Ülkeler yükleniyor...",
+    "name": "Ad",
+    "gender": "Cinsiyet",
+    "male": "Erkek",
+    "female": "Kadın",
+    "select-country": "Ülke Seçin",
     "message": "Mesaj",
     "send": "Gönder",
-    "success": "Mesajınız başarıyla gönderildi.",
-    "error": "Mesajınız gönderilirken bir hata oluştu."
+    "success": "Mesaj başarıyla gönderildi.",
+    "error": "Mesajınızı gönderirken bir hata oluştu"
+  },
+  "login": {
+    "title": "GİRİŞ",
+    "username": "Kullanıcı Adı",
+    "password": "Şifre",
+    "username-required": "Kullanıcı adı gerekli",
+    "password-required": "Şifre gerekli",
+    "login": "Giriş",
+    "logging-in": "Giriş yapılıyor...",
+    "error": "Geçersiz kullanıcı adı veya şifre"
+  },
+  "messages": {
+    "title": "MESAJLAR",
+    "success": "Mesaj başarıyla gönderildi.",
+    "error": "Mesajınızı gönderirken bir hata oluştu",
+    "name": "Ad",
+    "gender": "Cinsiyet",
+    "country": "Ülke",
+    "date": "Tarih",
+    "read": "Okundu",
+    "unread": "Okunmadı",
+    "actions": "İşlemler",
+    "view": "Oku",
+    "delete": "Sil",
+    "confirm-delete": "Silme Onayı",
+    "delete-message": "Bu mesajı silmek istediğinizden emin misiniz?",
+    "cancel": "İptal"
+  },
+  "message-details": {
+    "title": "MESAJ DETAYLARI",
+    "message": "Mesaj",
+    "back": "Mesajlara Geri Dön"
+  },
+  "users": {
+    "title": "KULLANICILAR",
+    "username": "Kullanıcı Adı",
+    "role": "Rol",
+    "actions": "İşlemler",
+    "edit": "Düzenle",
+    "add": "Yeni Kullanıcı Ekle"
+  },
+  "add-user": {
+    "title": "KULLANICI EKLE",
+    "username": "Kullanıcı Adı",
+    "password": "Şifre",
+    "photo": "Fotoğraf",
+    "choose-file": "Dosya Seç",
+    "no-file": "Dosya seçilmedi",
+    "username-required": "Kullanıcı adı gerekli",
+    "password-required": "Şifre gerekli",
+    "photo-required": "Fotoğraf gerekli",
+    "success": "Kullanıcı başarıyla eklendi.",
+    "error": "Kullanıcı eklenirken bir hata oluştu",
+    "back": "Geri Dön",
+    "add": "Kullanıcı Ekle"
+  },
+  "edit-user": {
+    "title": "KULLANICI DÜZENLE",
+    "success": "Kullanıcı başarıyla güncellendi.",
+    "error": "Kullanıcı güncellenirken bir hata oluştu",
+    "save": "Kullanıcıyı Güncelle",
+    "back": "Geri Dön"
+  },
+  "reports-page": {
+    "title": "RAPORLAR",
+    "messages-by-country": "Ülkeye Göre Mesajlar",
+    "message-count": "Mesaj Sayısı",
+    "messages-by-gender": "Cinsiyete Göre Mesajlar",
+    "male": "Erkek",
+    "female": "Kadın"
   }
 }

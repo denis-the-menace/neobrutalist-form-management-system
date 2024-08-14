@@ -5,8 +5,10 @@ import { useLoginMutation } from "../slices/userApiSlice";
 import Button from "../components/ui/Button";
 import Input from "../components/ui/Input";
 import { useNavigate } from "react-router-dom";
+import { useTranslation } from "react-i18next";
 
 export default function LogInForm() {
+  const {t} = useTranslation();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [error, setError] = useState("");
@@ -18,23 +20,21 @@ export default function LogInForm() {
   const submitHandler = async (e) => {
     e.preventDefault();
 
-    // Clear previous errors
     setError("");
 
-    // Basic form validation
     if (!username) {
-      setError("Username is required");
+      setError(t("login.username-required"));
       return;
     }
     if (!password) {
-      setError("Password is required");
+      setError(t("login.password-required"));
       return;
     }
 
     try {
       const res = await login({ username, password }).unwrap();
       dispatch(setCredentials({ ...res }));
-      navigate("/"); // Add the correct path where you want to navigate after login
+      navigate("/");
     } catch (err) {
       setError(err?.error || "Failed to login");
     }
@@ -49,12 +49,14 @@ export default function LogInForm() {
         <Input
           type="username"
           value={username}
+          label={t("login.username")}
           onChange={(e) => setUsername(e.target.value)}
           className="mb-4"
         />
         <Input
           type="password"
           value={password}
+          label={t("login.password")}
           onChange={(e) => setPassword(e.target.value)}
           className="mb-4"
         />
@@ -66,7 +68,7 @@ export default function LogInForm() {
           hoverColor="bg-dark-pink"
           activeColor="primary-dark"
         >
-          {isLoading ? "Logging in..." : "Login"}
+          {isLoading ? t("login.logging-in") : t("login.login")}
         </Button>
       </form>
     </div>

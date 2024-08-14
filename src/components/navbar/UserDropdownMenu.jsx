@@ -3,8 +3,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { useLogoutMutation } from "../../slices/userApiSlice";
 import { deleteCredentials } from "../../slices/authSlice";
+import { useTranslation } from "react-i18next";
 
 export default function UserDropdownMenu() {
+  const {t} = useTranslation();
   const { userInfo, token } = useSelector((state) => state.auth);
   const [isDropdownOpen, setIsDropdownOpen] = useState(false);
   const [logout] = useLogoutMutation();
@@ -38,7 +40,7 @@ export default function UserDropdownMenu() {
   };
 
   return (
-    <div ref={dropdownRef} className="relative">
+    <div ref={dropdownRef} className="relative z-50">
       <img
         src={`${userInfo.base64Photo}`}
         alt="User"
@@ -52,7 +54,7 @@ export default function UserDropdownMenu() {
             onClick={handleLogout}
             className="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
           >
-            Logout
+            {t("navbar.logout")}
           </button>
         </div>
       )}

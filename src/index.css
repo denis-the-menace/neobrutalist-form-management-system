@@ -17,7 +17,7 @@
     --color-light-red: #e57373;
     --color-dark-red: #cc0000;
     --color-light-green: #d0f0c0;
-    --color-dark-green: #004d00;
+    --color-dark-green: #008000;
   }
 
   .dark {
@@ -26,7 +26,7 @@
     --color-bright-orange: #ff8c00;
     --color-primary-dark: #ffffff;
     --color-primary-light: #000000;
-    --color-secondary: #b3b3b3;
+    --color-secondary: #4a4a4a;
     --color-light-pink: #cc9999;
     --color-dark-pink: #996666;
     --color-light-blue: #074e63;
@@ -93,6 +93,22 @@ section .wave.wave4 {
   opacity: 0.7;
   animation-delay: -2s;
   bottom: 20px;
+}
+
+.darker-waves .wave.wave1 {
+  opacity: 0.1;
+}
+
+.darker-waves .wave.wave2 {
+  opacity: 0.1;
+}
+
+.darker-waves .wave.wave3 {
+  opacity: 0.1;
+}
+
+.darker-waves .wave.wave4 {
+  opacity: 0.1;
 }
 
 @keyframes wave {

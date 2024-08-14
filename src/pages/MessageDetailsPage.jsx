@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, Link } from "react-router-dom";
 import {
   useGetMessageQuery,
@@ -8,8 +8,10 @@ import LoadingMessage from "../components/util/LoadingMessage";
 import ErrorMessage from "../components/util/ErrorMessage";
 import Button from "../components/ui/Button";
 import PageWrapper from "../components/PageWrapper";
+import { useTranslation } from "react-i18next";
 
-function MessageDetailsPage() {
+export default function MessageDetailsPage() {
+  const { t } = useTranslation();
   const { id } = useParams();
   const {
     data: { data: { message } = {} } = {},
@@ -18,45 +20,47 @@ function MessageDetailsPage() {
     error,
   } = useGetMessageQuery(id);
   const [markAsRead] = useMarkAsReadMutation();
+  const [isRead, setIsRead] = useState(false);
 
   useEffect(() => {
-    if (message && !message.read) {
+    if (message && !message.read === false) {
       markAsRead(id);
+      setIsRead(true);
     }
   }, [message, markAsRead, id]);
 
   if (isLoading) return <LoadingMessage />;
   if (isError) {
-    console.error("Error: ", error);
     return <ErrorMessage error={error} />;
   }
 
   return (
     <PageWrapper>
       <h2 className="text-3xl font-bold text-primary-dark text-center tracking-tighter mb-4">
-        MESSAGE DETAILS
+        {t("message-details.title")}
       </h2>
       <div className="transition duration-300 ease bg-primary-light text-primary-dark p-4 rounded">
         <p>
-          <strong>Name:</strong> {message.name}
+          <strong>{t("messages.name")}:</strong> {message.name}
         </p>
         <p>
-          <strong>Gender:</strong> {message.gender}
+          <strong>{t("messages.gender")}:</strong> {message.gender}
         </p>
         <p>
-          <strong>Country:</strong> {message.country}
+          <strong>{t("messages.country")}:</strong> {message.country}
         </p>
         <p>
-          <strong>Date:</strong>{" "}
+          <strong>{t("messages.date")}:</strong>{" "}
           {new Date(message.creationDate).toLocaleDateString()}
         </p>
         <p>
-          <strong>Message:</strong> {message.message}
+          <strong>{t("message-details.message")}:</strong> {message.message}
         </p>
       </div>
       <div className="flex justify-end">
         <Link
           to="/messages"
+          state={{ messageRead: isRead }}
           className="text-blue-500 hover:underline mt-4 block"
         >
           <Button
@@ -65,12 +69,10 @@ function MessageDetailsPage() {
             hoverColor="bg-dark-pink"
             activeColor="bg-primary-dark"
           >
-            Back to Messages
+            {t("message-details.back")}
           </Button>
         </Link>
       </div>
     </PageWrapper>
   );
 }
-
-export default MessageDetailsPage;

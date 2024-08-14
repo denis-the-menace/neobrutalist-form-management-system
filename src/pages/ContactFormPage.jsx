@@ -8,7 +8,7 @@ export default function ContactFormPage() {
   return (
     <PageWrapper>
       <h2 className="text-3xl font-bold text-primary-dark text-center tracking-tighter">
-        {t("contact-form-page.title")}
+        {t("contact-form.title")}
       </h2>
       <ContactForm />
     </PageWrapper>

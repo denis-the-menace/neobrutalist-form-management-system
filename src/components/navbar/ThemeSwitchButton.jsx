@@ -8,7 +8,7 @@ export default function ThemeSwitchButton() {
   return (
     <button
       onClick={() => dispatch(toggleTheme())}
-      className="h-12 w-12 rounded-[50%] bg-primary-light flex justify-center items-center"
+      className="h-12 w-12 rounded-[50%] lg:ml-2 bg-primary-light flex justify-center items-center"
     >
       {theme === "light" ? (
         <svg

@@ -6,8 +6,10 @@ import LoadingMessage from "../components/util/LoadingMessage";
 import Input from "./ui/Input";
 import Button from "./ui/Button";
 import { ToastContainer, toast } from "react-toastify";
+import { useTranslation } from "react-i18next";
 
 export default function EditUserForm() {
+  const { t } = useTranslation();
   const { id } = useParams();
   const navigate = useNavigate();
 
@@ -38,11 +40,11 @@ export default function EditUserForm() {
     e.preventDefault();
 
     if (!username) {
-      setError("Username is required");
+      setError(t("add-user.username-required"));
       return;
     }
     if (!password) {
-      setError("Password is required");
+      setError(t("add-user.password-required"));
       return;
     }
 
@@ -62,12 +64,11 @@ export default function EditUserForm() {
       console.log("User updated successfully.");
       // navigate("/users");
       navigate("/users", {
-        state: { toastMessage: "User updated successfully." },
+        state: { toastMessage: t("edit-user.success") },
       });
     } catch (err) {
-      console.error("Failed to update the user:", err);
       if (isError) {
-        notify("Failed to update the user! " + err.message);
+        notify(`${t("edit-user.error")}: ${err.message}`);
       }
     }
   };
@@ -79,10 +80,16 @@ export default function EditUserForm() {
       <div className="text-dark-red text-sm text-center min-h-5">
         {error && error}
       </div>
-      <Input type="username" value={user.username} readOnly={true} />
+      <Input
+        type="username"
+        value={user.username}
+        label={t("add-user.username")}
+        readOnly={true}
+      />
       <Input
         type="password"
         value={password}
+        label={t("add-user.password")}
         maxLength="10"
         onChange={(e) => setPassword(e.target.value)}
       />
@@ -91,7 +98,7 @@ export default function EditUserForm() {
           className="capitalize block type-lg font-bold type-primary-dark"
           htmlFor="photo"
         >
-          Photo
+          {t("add-user.photo")}
         </label>
         <div className="flex justify-between items-center">
           <label
@@ -99,7 +106,7 @@ export default function EditUserForm() {
             className="cursor-pointer bg-primary-light p-1 border-2 border-primary-dark rounded"
             style={{ boxShadow: "2px 2.5px 0 var(--color-primary-dark)" }}
           >
-            Choose File
+            {t("add-user.choose-file")}
           </label>
           {photo ? (
             <div>
@@ -110,7 +117,7 @@ export default function EditUserForm() {
               />
             </div>
           ) : (
-            <span className="text-secondary">No file chosen</span>
+            <span className="text-secondary">{t("add-user.no-file")}</span>
           )}
         </div>
         <input
@@ -130,7 +137,7 @@ export default function EditUserForm() {
             hoverColor={"bg-dark-pink"}
             activeColor={"bg-primary-dark"}
           >
-            Back to Users
+            {t("add-user.back")}
           </Button>
         </Link>
         <Button
@@ -140,7 +147,7 @@ export default function EditUserForm() {
           hoverColor={"bg-dark-blue"}
           activeColor={"bg-primary-dark"}
         >
-          Update User
+          {t("edit-user.save")}
         </Button>
       </div>
     </form>

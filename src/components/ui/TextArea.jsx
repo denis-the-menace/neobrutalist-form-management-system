@@ -5,6 +5,7 @@ export default function TextArea({
   children,
   className,
   value,
+  label,
   onChange,
   maxLength,
 }) {
@@ -16,9 +17,9 @@ export default function TextArea({
     <div>
       <label
         htmlFor="textarea"
-        className="capitalize block text-lg font-bold text-primary-dark mb-2"
+        className="capitalize block text-lg font-bold text-primary-dark"
       >
-        Message
+        {label}
       </label>
       <textarea
         id="textarea"

@@ -1,5 +1,5 @@
 import React from "react";
-import clsx from "clsx"; // If you're not already using clsx, you may need to install it
+import clsx from "clsx";
 
 export default function PageWrapper({
   children,

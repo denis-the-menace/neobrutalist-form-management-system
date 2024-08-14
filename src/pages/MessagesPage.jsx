@@ -1,5 +1,7 @@
+import { useState, useEffect } from "react";
+import Modal from "react-modal";
 import { useSelector } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import {
   useGetMessagesQuery,
   useDeleteMessageMutation,
@@ -9,9 +11,15 @@ import ErrorMessage from "../components/util/ErrorMessage";
 import Button from "../components/ui/Button";
 import PageWrapper from "../components/PageWrapper";
 import notify from "../utils/notify";
+import { useTranslation } from "react-i18next";
+
+Modal.setAppElement("#root");
 
 export default function MessagesPage() {
+  const { t } = useTranslation();
   const { userInfo } = useSelector((state) => state.auth);
+  const location = useLocation();
+  const { messageRead } = location.state || {};
   const {
     data: { data: { messages = [] } = {} } = {},
     isLoading,
@@ -20,40 +28,76 @@ export default function MessagesPage() {
     refetch,
   } = useGetMessagesQuery();
   const [deleteMessage] = useDeleteMessageMutation();
+  const [modalIsOpen, setModalIsOpen] = useState(false);
+  const [selectedMessage, setSelectedMessage] = useState(null);
+
+  useEffect(() => {
+    if (messageRead) refetch();
+  }, [messageRead, refetch]);
+
+  useEffect(() => {
+    document
+      .querySelector("section")
+      .classList.toggle("darker-waves", modalIsOpen);
+  }, [modalIsOpen]);
 
   if (isLoading) return <LoadingMessage />;
   if (isError) {
     return <ErrorMessage error={error} />;
   }
 
-  const handleDelete = async (id) => {
-    if (window.confirm("Are you sure you want to delete this message?")) {
+  const handleDelete = async () => {
+    if (selectedMessage) {
       try {
-        await deleteMessage(id).unwrap();
-        notify("Message deleted successfully.");
+        await deleteMessage(selectedMessage).unwrap();
+        const successMessage = t("messages.message-deleted");
+        notify(successMessage);
         refetch();
+        closeModal();
       } catch (err) {
-        console.error("Failed to delete the message:", err);
-        notify("Failed to delete the message: ", err);
+        const errorMessage = t("messages.error");
+        notify(`${errorMessage}: ${err}`);
       }
     }
+  };
+
+  const openModal = (id) => {
+    setSelectedMessage(id);
+    setModalIsOpen(true);
+  };
+
+  const closeModal = () => {
+    setModalIsOpen(false);
+    setSelectedMessage(null);
   };
 
   return (
     <PageWrapper>
       <h2 className="text-3xl font-bold text-primary-dark text-center tracking-tighter mb-4">
-        MESSAGES
+        {t("messages.title")}
       </h2>
-      <div className="overflow-x-auto">
+      <div className="overflow-x-auto overflow-y-auto max-h-[500px]">
         <table className="transition duration-300 ease lg:min-w-full min-w-[1000px] bg-primary-light text-primary-dark">
           <thead>
             <tr className="border-b-2 border-primary-dark">
-              <th className="py-2 px-4 text-center w-1/6">Name</th>
-              <th className="py-2 px-4 text-center w-1/6">Gender</th>
-              <th className="py-2 px-4 text-center w-1/6">Country</th>
-              <th className="py-2 px-4 text-center w-1/6">Date</th>
-              <th className="py-2 px-4 text-center w-1/6">Read</th>
-              <th className="py-2 px-4 text-center w-1/6">Actions</th>
+              <th className="py-2 px-4 text-center w-1/6">
+                {t("messages.name")}
+              </th>
+              <th className="py-2 px-4 text-center w-1/6">
+                {t("messages.gender")}
+              </th>
+              <th className="py-2 px-4 text-center w-1/6">
+                {t("messages.country")}
+              </th>
+              <th className="py-2 px-4 text-center w-1/6">
+                {t("messages.date")}
+              </th>
+              <th className="py-2 px-4 text-center w-1/6">
+                {t("messages.read")}
+              </th>
+              <th className="py-2 px-4 text-center w-1/6">
+                {t("messages.actions")}
+              </th>
             </tr>
           </thead>
           <tbody>
@@ -66,8 +110,9 @@ export default function MessagesPage() {
                   {new Date(message.creationDate).toLocaleDateString()}
                 </td>
                 <td className="py-2 px-4 text-center">
-                  {console.log(message.read)}
-                  {message.read ? "Read" : "Unread"}
+                  {message.read === "true"
+                    ? t("messages.read")
+                    : t("messages.unread")}
                 </td>
                 <td className="py-2 text-center">
                   <Link to={`/messages/${message.id}`} className="mr-2">
@@ -80,7 +125,7 @@ export default function MessagesPage() {
                       activeColor="bg-primary-dark"
                       hasShadow={false}
                     >
-                      View
+                      {t("messages.view")}
                     </Button>
                   </Link>
                   {userInfo.role === "admin" && (
@@ -91,10 +136,10 @@ export default function MessagesPage() {
                       bgColor="bg-light-red"
                       hoverColor="bg-dark-red"
                       activeColor="bg-primary-dark"
-                      onClick={() => handleDelete(message.id)}
+                      onClick={() => openModal(message.id)}
                       hasShadow={false}
                     >
-                      Delete
+                      {t("messages.delete")}
                     </Button>
                   )}
                 </td>
@@ -103,6 +148,54 @@ export default function MessagesPage() {
           </tbody>
         </table>
       </div>
+
+      <Modal
+        isOpen={modalIsOpen}
+        onRequestClose={closeModal}
+        contentLabel={t("messages.confirm-delete")}
+        style={{
+          content: {
+            top: "50%",
+            left: "50%",
+            right: "auto",
+            bottom: "auto",
+            marginRight: "-50%",
+            transform: "translate(-50%, -50%)",
+            padding: "2rem",
+            backgroundColor: "var(--color-primary-light)",
+            border: "1px solid var(--color-primary-dark)",
+            borderRadius: "1rem",
+          },
+          overlay: {
+            backgroundColor: "rgba(0, 0, 0, 0.75)",
+          },
+        }}
+      >
+        <h2 className="text-xl font-bold mb-4">
+          {t("messages.confirm-delete")}
+        </h2>
+        <p className="mb-4">{t("messages.delete-message")}</p>
+        <div className="flex justify-end">
+          <Button
+            className="mr-2 px-4 py-2"
+            bgColor="bg-light-pink"
+            hoverColor="bg-dark-pink"
+            activeColor="bg-primary-dark"
+            onClick={closeModal}
+          >
+            {t("messages.cancel")}
+          </Button>
+          <Button
+            className="px-4 py-2"
+            bgColor="bg-light-red"
+            hoverColor="bg-dark-red"
+            activeColor="bg-primary-dark"
+            onClick={handleDelete}
+          >
+            {t("messages.delete")}
+          </Button>
+        </div>
+      </Modal>
     </PageWrapper>
   );
 }

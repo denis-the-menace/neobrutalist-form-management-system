@@ -4,15 +4,97 @@
     "login": "LOGIN",
     "messages": "MESSAGES",
     "users": "USERS",
-    "reports": "REPORTS"
+    "reports": "REPORTS",
+    "logout": "Logout"
   },
-  "contact-form-page": {
+  "footer": {
+    "rights": " OBSS. All Rights Reserved",
+    "privacy": "Privacy Policy",
+    "terms": "Terms of Use",
+    "contact": "Contact Us"
+  },
+  "contact-form": {
     "title": "CONTACT US",
+    "fail-countries": "Failed to load countries",
+    "loading-countries": "Loading countries...",
     "name": "Name",
-    "email": "Email",
+    "gender": "Gender",
+    "male": "Male",
+    "female": "Female",
+    "select-country": "Select Country",
     "message": "Message",
     "send": "Send",
-    "success": "Your message has been sent successfully.",
-    "error": "An error occurred while sending your message."
+    "success": "Message has been sent successfully.",
+    "error": "An error occurred while sending your message"
+  },
+  "login": {
+    "title": "LOGIN",
+    "username": "Username",
+    "password": "Password",
+    "username-required": "Username is required",
+    "password-required": "Password is required",
+    "login": "Login",
+    "logging-in": "Logging in...",
+    "error": "Invalid username or password"
+  },
+  "messages": {
+    "title": "MESSAGES",
+    "success": "Message has been sent successfully.",
+    "error": "An error occurred while sending your message",
+    "name": "Name",
+    "gender": "Gender",
+    "country": "Country",
+    "date": "Date",
+    "read": "Read",
+    "unread": "Unread",
+    "actions": "Actions",
+    "view": "View",
+    "delete": "Delete",
+    "confirm-delete": "Confirm Delete",
+    "delete-message": "Are you sure you want to delete this message?",
+    "cancel": "Cancel"
+  },
+  "message-details": {
+    "title": "MESSAGE DETAILS",
+    "message": "Message",
+    "back": "Back to Messages"
+  },
+  "users": {
+    "title": "USERS",
+    "username": "Username",
+    "role": "Role",
+    "actions": "Actions",
+    "edit": "Edit",
+    "add": "Add New User"
+  },
+  "add-user": {
+    "title": "ADD USER",
+    "username": "Username",
+    "password": "Password",
+    "photo": "Photo",
+    "choose-file": "Choose File",
+    "no-file": "No file chosen",
+    "username-required": "Username is required",
+    "password-required": "Password is required",
+    "photo-required": "Photo is required",
+    "success": "User has been added successfully.",
+    "error": "An error occurred while adding the user",
+    "back": "Back to Users",
+    "add": "Add User"
+  },
+  "edit-user": {
+    "title": "EDIT USER",
+    "success": "User has been updated successfully.",
+    "error": "An error occurred while updating the user",
+    "save": "Update User",
+    "back": "Back to Users"
+  },
+  "reports-page": {
+    "title": "REPORTS",
+    "messages-by-country": "Messages by Country",
+    "message-count": "Message Count",
+    "messages-by-gender": "Messages by Gender",
+    "male": "Male",
+    "female": "Female"
   }
 }

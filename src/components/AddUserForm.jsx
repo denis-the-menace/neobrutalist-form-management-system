@@ -5,8 +5,11 @@ import LoadingMessage from "../components/util/LoadingMessage";
 import ErrorMessage from "../components/util/ErrorMessage";
 import Input from "../components/ui/Input";
 import Button from "../components/ui/Button";
+import { useTranslation } from "react-i18next";
+import notify from "../utils/notify";
 
 export default function AddUserForm() {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
@@ -28,16 +31,16 @@ export default function AddUserForm() {
     e.preventDefault();
 
     if (!username) {
-      setError("Username is required");
+      setError(t("add-user.username-required"));
       return;
     }
     if (!password) {
-      setError("Password is required");
+      setError(t("add-user.password-required"));
       return;
     }
 
     if (!photo) {
-      setError("Photo is required");
+      setError(t("add-user.photo-required"));
       return;
     }
 
@@ -50,11 +53,10 @@ export default function AddUserForm() {
     try {
       await addUser(userData).unwrap();
       navigate("/users", {
-        state: { toastMessage: "User added successfully." },
+        state: { toastMessage: t("add-user.success") },
       });
     } catch (err) {
-      console.error("Failed to add the user:", err);
-      // TODO handle error
+      notify(t("add-user.error"));
       return <ErrorMessage error={err} />;
     }
   };
@@ -69,11 +71,13 @@ export default function AddUserForm() {
       <Input
         type="username"
         value={username}
+        label={t("add-user.username")}
         onChange={(e) => setUsername(e.target.value)}
       />
       <Input
         type="password"
         value={password}
+        label={t("add-user.password")}
         maxLength="10"
         onChange={(e) => setPassword(e.target.value)}
       />
@@ -82,7 +86,7 @@ export default function AddUserForm() {
           className="capitalize block type-lg font-bold type-primary-dark"
           htmlFor="photo"
         >
-          Photo
+          {t("add-user.photo")}
         </label>
         <div className="flex justify-between items-center">
           <label
@@ -90,7 +94,7 @@ export default function AddUserForm() {
             className="cursor-pointer bg-primary-light p-1 border-2 border-primary-dark rounded"
             style={{ boxShadow: "2px 2.5px 0 var(--color-primary-dark)" }}
           >
-            Choose File
+            {t("add-user.choose-file")}
           </label>
           {photo ? (
             <div>
@@ -101,7 +105,7 @@ export default function AddUserForm() {
               />
             </div>
           ) : (
-            <span className="text-secondary">No file chosen</span>
+            <span className="text-secondary">{t("add-user.no-file")}</span>
           )}
         </div>
         <input
@@ -121,7 +125,7 @@ export default function AddUserForm() {
             hoverColor={"bg-dark-pink"}
             activeColor={"bg-primary-dark"}
           >
-            Back to Users
+            {t("add-user.back")}
           </Button>
         </Link>
         <Button
@@ -131,7 +135,7 @@ export default function AddUserForm() {
           hoverColor={"bg-dark-blue"}
           activeColor={"bg-primary-dark"}
         >
-          Add User
+          {t("add-user.add")}
         </Button>
       </div>
     </form>

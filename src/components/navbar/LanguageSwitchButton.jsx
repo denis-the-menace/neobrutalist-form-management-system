@@ -26,7 +26,7 @@ export default function LanguageSwitchButton() {
   }, []);
 
   return (
-    <div ref={dropdownRef} className="relative">
+    <div ref={dropdownRef} className="relative z-50 lg:mr-6">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         height="24px"

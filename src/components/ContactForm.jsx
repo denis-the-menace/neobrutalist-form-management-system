@@ -28,7 +28,6 @@ export default function ContactForm() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    // Basic validation
     if (!name) {
       setError("Name is required");
       return;
@@ -62,9 +61,11 @@ export default function ContactForm() {
       setGender("");
       setCountry("");
       setMessage("");
-      notify("Message sent successfully");
+      const successMessage = t("contact-form.success");
+      notify(successMessage);
     } catch (err) {
-      setError(`Failed to send message: ${err.error}`);
+      const errorMessage = t("contact-form.error");
+      setError(`${errorMessage}: ${err.error}`);
     }
   };
 
@@ -74,11 +75,13 @@ export default function ContactForm() {
         {error && <div className="text-dark-red">{error}</div>}
         {success && <div className="text-dark-green">{success}</div>}
         {countriesError && (
-          <div className="text-dark-red">Failed to load countries</div>
+          <div className="text-dark-red">
+            {t("contact-form.failed-countries")}
+          </div>
         )}
       </div>
       {isLoading ? (
-        <div>Loading countries...</div>
+        <div>{t("contact-form.loading-countries")}</div>
       ) : (
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="flex flex-row gap-8">
@@ -87,19 +90,19 @@ export default function ContactForm() {
                 type="name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
-                label="Name"
+                label={t("contact-form.name")}
                 maxLength="50"
                 className="w-full"
               />
             </div>
             <div className="flex flex-col ml-auto">
               <span className="capitalize block font-bold text-primary-dark">
-                Gender
+                {t("contact-form.gender")}
               </span>
               <RadioButtonGroup
                 buttons={[
-                  { value: "test", label: "male" },
-                  { value: "test2", label: "female" },
+                  { value: "male", label: t("contact-form.male") },
+                  { value: "female", label: t("contact-form.female") },
                 ]}
                 onChange={setGender}
               />
@@ -107,12 +110,14 @@ export default function ContactForm() {
           </div>
           <Selector
             label="country"
+            placeholder={t("contact-form.select-country")}
             value={country}
             onChange={(e) => setCountry(e.target.value)}
             options={countries}
           />
           <TextArea
             value={message}
+            label={t("contact-form.message")}
             onChange={(e) => setMessage(e.target.value)}
             maxLength="500"
             className="w-full"
@@ -126,7 +131,7 @@ export default function ContactForm() {
               activeColor="bg-primary-dark"
               disabled={isSubmitting}
             >
-              Submit
+              {t("contact-form.send")}
             </Button>
           </div>
         </form>
